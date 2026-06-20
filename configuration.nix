@@ -82,6 +82,14 @@
     # Az NVIDIA GPU busz azonosítója
     nvidiaBusId = "PCI:1:0:0";
   };
+  # Ryzen CPU hőmérsékleti korlát 75°C-ra
+  hardware.ryzen-smu.enable = true;
+  services.ryzenadj = {
+    enable = true;
+    settings = {
+      tctl-temp = 75;
+    };
+  };
 
   # Enable the X11 windowing system. You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
