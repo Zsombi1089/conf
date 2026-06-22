@@ -117,6 +117,22 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
+
+
+  systemd.services.ryzenadj-tctl = {
+    description = "Set Ryzen Tctl temperature limit";
+    after = [ "multi-user.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=75";
+    };
+  };
+
+
+
   environment.systemPackages = with pkgs; [
     arduino-ide
     btop
@@ -156,4 +172,3 @@
   system.stateVersion = "26.05";
 
 }
-
