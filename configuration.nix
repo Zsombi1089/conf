@@ -1,5 +1,13 @@
 { config, pkgs, ... }:
 
+
+let
+  # Rögzített librewolf verzió egy régebbi nixpkgs commit-ból
+  librewolfPkgs = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/e9a7635a57597d9754eccebdfc7045e6c8600e6b.tar.gz") {};
+  librewolf-fix = librewolfPkgs.librewolf;
+in
+
+
 {
   imports =
     [
@@ -149,7 +157,7 @@
     keepassxc
     kdePackages.filelight
     kdePackages.kleopatra
-    librewolf
+    librewolf-fix
     mediawriter
     mullvad-browser
     proton-vpn
