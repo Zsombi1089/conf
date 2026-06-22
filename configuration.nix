@@ -89,7 +89,7 @@
     # Az NVIDIA nyílt forráskódú kernel moduljának használata (ajánlott RTX 20xx-től)
     open = true;
     # A teljesítménymenedzsment kísérleti funkció, kikapcsolva hagyom
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
     # Az NVIDIA beállítások menüjének engedélyezése
     nvidiaSettings = true;
@@ -97,7 +97,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
 
   # Alapvető gyorsítás engedélyezése
   hardware.graphics = {
