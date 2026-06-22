@@ -22,14 +22,20 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.initrd.luks.devices."luks-376d6ff5-efc1-4324-9b83-8517debce7e5".device = "/dev/disk/by-uuid/376d6ff5-efc1-4324-9b83-8517debce7e5";
-  networking.hostName = "n250m131";
 
+
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 30d";
+  };
+
+
+  networking.hostName = "n250m131";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Budapest";
-
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "hu_HU.UTF-8";
     LC_IDENTIFICATION = "hu_HU.UTF-8";
