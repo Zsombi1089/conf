@@ -164,7 +164,7 @@ in
     keepassxc
     kdePackages.filelight
     kdePackages.kleopatra
-    librewolf-fix
+    librewolf
     mediawriter
     mullvad-browser
     proton-vpn
