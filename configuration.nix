@@ -36,6 +36,7 @@ in
 
   time.timeZone = "Europe/Budapest";
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [ "all" ];
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "hu_HU.UTF-8";
     LC_IDENTIFICATION = "hu_HU.UTF-8";
