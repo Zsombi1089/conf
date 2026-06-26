@@ -86,6 +86,12 @@ in
     extraConfig = builtins.readFile ./tmux.conf;
   };
 
+
+  programs.bash = {
+    enable = true;
+    interactiveShellInit = builtins.readFile ./bashrc.sh;
+  };
+
   programs.firefox.enable = true;
 
   programs.kdeconnect.enable = true;
@@ -182,6 +188,7 @@ in
     vim
     vscodium
     wget
+    dotnet-sdk_10
   ];
   system.stateVersion = "26.05";
 
