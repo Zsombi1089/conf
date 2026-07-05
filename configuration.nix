@@ -81,6 +81,12 @@ in
     ];
   };
 
+  programs.gnupg.agent = {
+     enable = true;
+    enableSSHSupport = false;
+    pinentryPackage = pkgs.pinentry-qt;
+  };
+
   programs.tmux={
     enable=true;
     extraConfig = builtins.readFile ./tmux.conf;
@@ -189,6 +195,7 @@ in
     vscodium
     wget
     dotnet-sdk_10
+    signal-desktop
   ];
   system.stateVersion = "26.05";
 
