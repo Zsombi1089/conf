@@ -196,6 +196,9 @@ in
     wget
     dotnet-sdk_10
     signal-desktop
+    python313Packages.argostranslate
+    python313Packages.argos-translate-files
+    vesktop
   ];
   system.stateVersion = "26.05";
 
