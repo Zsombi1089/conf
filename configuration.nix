@@ -164,6 +164,7 @@ in
     btop
     digital
     discord
+    dotnet-sdk_10
     element-desktop
     fastfetch
     freetube
@@ -172,9 +173,9 @@ in
     gnupg
     gparted
     htop
-    keepassxc
     kdePackages.filelight
     kdePackages.kleopatra
+    keepassxc
     librewolf
     mediawriter
     mullvad-browser
@@ -182,6 +183,7 @@ in
     rpi-imager
     ryzenadj
     sdrangel
+    signal-desktop
     steam
     teams-for-linux
     thunderbird
@@ -194,11 +196,6 @@ in
     vim
     vscodium
     wget
-    dotnet-sdk_10
-    signal-desktop
-    python313Packages.argostranslate
-    python313Packages.argos-translate-files
-    vesktop
   ];
   system.stateVersion = "26.05";
 
