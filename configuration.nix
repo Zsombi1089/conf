@@ -180,9 +180,12 @@ in
     mediawriter
     mullvad-browser
     proton-vpn
+    python313Packages.argostranslate
+    python313Packages.argos-translate-files
     rpi-imager
     ryzenadj
     sdrangel
+    sherlock
     signal-desktop
     steam
     teams-for-linux
@@ -193,7 +196,9 @@ in
     tor-browser
     vencord
     veracrypt
+    vesktop
     vim
+    vlc
     vscodium
     wget
   ];
