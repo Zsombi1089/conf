@@ -5,14 +5,21 @@ let
   # Rögzített librewolf verzió egy régebbi nixpkgs commit-ból
   librewolfPkgs = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/e9a7635a57597d9754eccebdfc7045e6c8600e6b.tar.gz") {};
   librewolf-fix = librewolfPkgs.librewolf;
-in
 
+
+  prismlauncher-cracked = (builtins.getFlake "github:Diegiwg/PrismLauncher-Cracked").packages.${pkgs.system}.default;
+in
 
 {
   imports =
     [
       ./hardware-configuration.nix
     ];
+
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.trusted-users = [ "root" "n250m131" ];
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -179,6 +186,7 @@ in
     librewolf
     mediawriter
     mullvad-browser
+    prismlauncher-cracked
     proton-vpn
     python313Packages.argostranslate
     python313Packages.argos-translate-files
