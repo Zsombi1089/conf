@@ -180,6 +180,8 @@ in
     gnupg
     gparted
     htop
+    jdk17
+    jdk21
     kdePackages.filelight
     kdePackages.kleopatra
     keepassxc
