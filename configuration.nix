@@ -105,6 +105,11 @@ in
     interactiveShellInit = builtins.readFile ./bashrc.sh;
   };
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   programs.firefox.enable = true;
 
   programs.kdeconnect.enable = true;
@@ -167,6 +172,7 @@ in
 
 
   environment.systemPackages = with pkgs; [
+    appimage-run
     arduino-ide
     btop
     digital
