@@ -19,12 +19,9 @@ in
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.initrd.luks.devices."luks-376d6ff5-efc1-4324-9b83-8517debce7e5".device = "/dev/disk/by-uuid/376d6ff5-efc1-4324-9b83-8517debce7e5";
@@ -83,7 +80,6 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
     ];
   };
 
@@ -115,46 +111,33 @@ in
 
   programs.ssh.startAgent = true;
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
 
-  # NVIDIA konfiguráció
   hardware.nvidia = {
-    # A modesetting engedélyezése kötelező
     modesetting.enable = true;
-    # Az NVIDIA nyílt forráskódú kernel moduljának használata (ajánlott RTX 20xx-től)
     open = true;
-    # A teljesítménymenedzsment kísérleti funkció, kikapcsolva hagyom
     powerManagement.enable = true;
     powerManagement.finegrained = false;
-    # Az NVIDIA beállítások menüjének engedélyezése
     nvidiaSettings = true;
-    # A stabil illesztőprogram-csomag használata
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
 
-  # Alapvető gyorsítás engedélyezése
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
 
   hardware.nvidia.prime = {
-    # Az NVIDIA offload (kirendelés) funkciójának engedélyezése
     offload = {
       enable = true;
       enableOffloadCmd = true;
     };
-    # Az AMD GPU busz azonosítója
     amdgpuBusId = "PCI:5:0:0";
-    # Az NVIDIA GPU busz azonosítója
     nvidiaBusId = "PCI:1:0:0";
   };
-
-
 
   systemd.services.ryzenadj-tctl = {
     description = "Set Ryzen Tctl temperature limit";
@@ -167,8 +150,6 @@ in
       ExecStart = "${pkgs.ryzenadj}/bin/ryzenadj --tctl-temp=75";
     };
   };
-
-
 
   environment.systemPackages = with pkgs; [
     appimage-run
@@ -219,5 +200,4 @@ in
     xkill
   ];
   system.stateVersion = "26.05";
-
 }
