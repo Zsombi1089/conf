@@ -184,6 +184,7 @@ in
     sherlock
     signal-desktop
     steam
+    stress
     teams-for-linux
     thunderbird
     tigervnc
