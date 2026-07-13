@@ -216,6 +216,7 @@ in
     vlc
     vscodium
     wget
+    xkill
   ];
   system.stateVersion = "26.05";
 
