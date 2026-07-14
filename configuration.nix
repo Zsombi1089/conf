@@ -1,13 +1,11 @@
 { config, pkgs, ... }:
 
-
 let
-  # Rögzített librewolf verzió egy régebbi nixpkgs commit-ból
   librewolfPkgs = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/e9a7635a57597d9754eccebdfc7045e6c8600e6b.tar.gz") {};
   librewolf-fix = librewolfPkgs.librewolf;
 
-
   prismlauncher-cracked = (builtins.getFlake "github:Diegiwg/PrismLauncher-Cracked").packages.${pkgs.system}.default;
+
 in
 
 {
@@ -15,7 +13,6 @@ in
     [
       ./hardware-configuration.nix
     ];
-
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -94,6 +91,17 @@ in
     extraConfig = builtins.readFile ./tmux.conf;
   };
 
+  programs.vim = {
+    enable = true;
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    configure = {
+      customRC = builtins.readFile ./vimrc;
+    };
+  };
 
   programs.bash = {
     enable = true;
@@ -103,6 +111,18 @@ in
   programs.appimage = {
     enable = true;
     binfmt = true;
+    package = pkgs.appimage-run.override {
+      extraPkgs = pkgs: with pkgs; [
+        glfw
+        libGL
+        mesa
+        xorg.libX11
+        xorg.libXrandr
+        xorg.libXinerama
+        xorg.libXcursor
+        xorg.libXi
+      ];
+    };
   };
 
   programs.firefox.enable = true;
@@ -152,7 +172,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    appimage-run
     arduino-ide
     btop
     digital
@@ -162,6 +181,7 @@ in
     fastfetch
     freetube
     gajim
+    gcc
     git
     gnupg
     gparted
@@ -194,10 +214,10 @@ in
     vencord
     veracrypt
     vesktop
-    vim
     vlc
     vscodium
     wget
+    wireguard-tools
     xkill
   ];
   system.stateVersion = "26.05";
