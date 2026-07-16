@@ -98,8 +98,15 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+
     configure = {
-      customRC = builtins.readFile ./vimrc;
+      customRC = ''
+        lua << EOF
+        dofile("${builtins.toString ./nvim/init.lua}")
+        EOF
+      '';
     };
   };
 
@@ -191,9 +198,11 @@ in
     kdePackages.filelight
     kdePackages.kleopatra
     keepassxc
+    kiwix
     librewolf
     mediawriter
     mullvad-browser
+    organicmaps
     prismlauncher-cracked
     proton-vpn
     python313Packages.argostranslate
@@ -219,6 +228,7 @@ in
     wget
     wireguard-tools
     xkill
+    yazi
   ];
   system.stateVersion = "26.05";
 }
