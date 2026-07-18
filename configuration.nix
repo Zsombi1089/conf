@@ -98,8 +98,8 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
+    viAlias = false;
+    vimAlias = false;
 
     configure = {
       customRC = ''
@@ -139,6 +139,7 @@ in
   programs.ssh.startAgent = true;
 
   nixpkgs.config.allowUnfree = true;
+
 
 
   hardware.nvidia = {
