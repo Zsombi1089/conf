@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 let
+  unstable = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz") {};
+
   librewolfPkgs = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/e9a7635a57597d9754eccebdfc7045e6c8600e6b.tar.gz") {};
   librewolf-fix = librewolfPkgs.librewolf;
 
@@ -180,6 +182,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    apio
     arduino-ide
     btop
     digital
@@ -203,9 +206,11 @@ in
     librewolf
     mediawriter
     mullvad-browser
+    openfpgaloader
     organicmaps
     prismlauncher-cracked
     proton-vpn
+    python3
     python313Packages.argostranslate
     python313Packages.argos-translate-files
     rpi-imager
@@ -230,6 +235,10 @@ in
     wireguard-tools
     xkill
     yazi
-  ];
+    yosys
+  ]++ (with unstable;[
+    nextpnr
+    python314Packages.apycula
+    ]);
   system.stateVersion = "26.05";
 }
