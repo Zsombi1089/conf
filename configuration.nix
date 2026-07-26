@@ -182,6 +182,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    android-tools
     apio
     arduino-ide
     btop
@@ -213,9 +214,11 @@ in
     python3
     python313Packages.argostranslate
     python313Packages.argos-translate-files
+    python314Packages.pip
     rpi-imager
     ryzenadj
     sdrangel
+    sdrpp
     sherlock
     signal-desktop
     steam
@@ -227,7 +230,7 @@ in
     tmux
     tor-browser
     vencord
-    veracrypt
+    #veracrypt
     vesktop
     vlc
     vscodium
