@@ -3,8 +3,7 @@
 let
   unstable = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz") {};
 
-  librewolfPkgs = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/e9a7635a57597d9754eccebdfc7045e6c8600e6b.tar.gz") {};
-  librewolf-fix = librewolfPkgs.librewolf;
+  pinned = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/3e7047a69e3427faeb1621c3ef835c5d60a95788.tar.gz") {};
 
   prismlauncher-cracked = (builtins.getFlake "github:Diegiwg/PrismLauncher-Cracked").packages.${pkgs.system}.default;
 
@@ -18,12 +17,22 @@ in
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+
+  boot.blacklistedKernelModules = [
+    "dvb_usb_rtl28xxu"
+    "dvb_usb_v2"
+    "rtl2832"
+    "rtl2832_sdr"
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.initrd.luks.devices."luks-376d6ff5-efc1-4324-9b83-8517debce7e5".device = "/dev/disk/by-uuid/376d6ff5-efc1-4324-9b83-8517debce7e5";
+
+  boot.kernelModules = [ "wireguard" ];
 
 
   nix.gc = {
@@ -76,7 +85,7 @@ in
   users.users."n250m131" = {
     isNormalUser = true;
     description = "n250m131";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "tty" "video" "render" "crossmacro"];
     packages = with pkgs; [
       kdePackages.kate
     ];
@@ -142,7 +151,10 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-
+  services.crossmacro = {
+    enable = true;
+    users = [ "n250m131" ];
+  };
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -153,7 +165,7 @@ in
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
+  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
 
   hardware.graphics = {
     enable = true;
@@ -186,6 +198,8 @@ in
     apio
     arduino-ide
     btop
+    crossmacro
+    crossmacro-daemon
     digital
     discord
     dotnet-sdk_10
@@ -204,19 +218,22 @@ in
     kdePackages.kleopatra
     keepassxc
     kiwix
-    librewolf
+    #librewolf
     mediawriter
     mullvad-browser
     openfpgaloader
     organicmaps
     prismlauncher-cracked
     proton-vpn
+    proton-vpn-cli
     python3
     python313Packages.argostranslate
     python313Packages.argos-translate-files
     python314Packages.pip
     rpi-imager
+    rtl-sdr
     ryzenadj
+    scrcpy
     sdrangel
     sdrpp
     sherlock
@@ -224,7 +241,7 @@ in
     steam
     stress
     teams-for-linux
-    thunderbird
+    #thunderbird
     tigervnc
     tio
     tmux
@@ -236,12 +253,16 @@ in
     vscodium
     wget
     wireguard-tools
+    xinit
     xkill
     yazi
     yosys
   ]++ (with unstable;[
     nextpnr
     python314Packages.apycula
-    ]);
+  ])++ (with pinned;[
+    librewolf
+    thunderbird
+  ]);
   system.stateVersion = "26.05";
 }
