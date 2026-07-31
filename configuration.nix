@@ -247,7 +247,7 @@ in
     tmux
     tor-browser
     vencord
-    #veracrypt
+    veracrypt
     vesktop
     vlc
     vscodium
