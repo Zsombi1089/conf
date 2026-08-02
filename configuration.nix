@@ -7,6 +7,19 @@ let
 
   prismlauncher-cracked = (builtins.getFlake "github:Diegiwg/PrismLauncher-Cracked").packages.${pkgs.system}.default;
 
+  original = (builtins.getFlake "github:0xle0ne/wireguard-gui").packages.${pkgs.system}.default;
+
+  fixedNpmDeps = original.npmDeps.overrideAttrs (old: {
+    outputHash = "sha256-Vqm/YJ1wPZcMdLEmLMVe7rDxUTk3wpHS7mVHXKYcmcc=";
+    outputHashAlgo = "sha256";
+  });
+
+  wireguard-gui = original.overrideAttrs (old: {
+    npmDeps = fixedNpmDeps;
+  });
+
+
+
 in
 
 {
@@ -218,7 +231,7 @@ in
     kdePackages.kleopatra
     keepassxc
     kiwix
-    #librewolf
+    librewolf
     mediawriter
     mullvad-browser
     openfpgaloader
@@ -241,7 +254,7 @@ in
     steam
     stress
     teams-for-linux
-    #thunderbird
+    thunderbird
     tigervnc
     tio
     tmux
@@ -252,6 +265,7 @@ in
     vlc
     vscodium
     wget
+    #wireguard-gui
     wireguard-tools
     xinit
     xkill
@@ -261,8 +275,6 @@ in
     nextpnr
     python314Packages.apycula
   ])++ (with pinned;[
-    librewolf
-    thunderbird
   ]);
   system.stateVersion = "26.05";
 }
