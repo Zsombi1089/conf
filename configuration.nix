@@ -14,7 +14,7 @@ let
     outputHashAlgo = "sha256";
   });
 
-  wireguard-gui = original.overrideAttrs (old: {
+  wireguard-gui-rosz = original.overrideAttrs (old: {
     npmDeps = fixedNpmDeps;
   });
 
