@@ -164,6 +164,8 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  programs.nix-ld.enable = true;
+
   services.crossmacro = {
     enable = true;
     users = [ "n250m131" ];
@@ -218,9 +220,11 @@ in
     dotnet-sdk_10
     element-desktop
     fastfetch
+    file
     freetube
     gajim
     gcc
+    ghidra
     git
     gnupg
     gparted
@@ -234,6 +238,7 @@ in
     librewolf
     mediawriter
     mullvad-browser
+    musl
     openfpgaloader
     organicmaps
     prismlauncher-cracked
